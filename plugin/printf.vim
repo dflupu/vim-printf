@@ -48,6 +48,10 @@ function! s:printf() abort
   if empty(pattern) | let pattern = 'printf("%d\n", %s);' | endif
   let directive = matchstr(pattern, '%\(\w\|\.\)\+')
 
+  if directive == '%_'
+      let directive = ''
+  endif
+
   let [prefix, middle, suffix] = split(pattern, '%\(\w\|\.\)\+', 1)
   let indent = matchstr(getline('.'), '^\s\+')
   let line = substitute(getline('.'), indent, '', '')
